@@ -9,40 +9,28 @@ getUrl = (user = '') ->
 packages = (user) ->
 
 	deferred = do promise.defer
-	page = -1
-	total = 0
-	requests = 0
 
 	request = ->
 
 		++requests
 
-		url = getUrl user, ++page
+		url = getUrl user
 		scrape.request url, (err, $) ->
 			process err, $
 
 	process = (err, $) ->
 
-		rows = $ '#package .row'
-		count = rows.length
+		stats = $ '.stat-number'
+		count = +stats[1].innerHTML
 
-		if err or (count is 1 and requests is 1)
+		if err
 			deferred.reject err
 
 		else
-
-			if count > 1
-
-				total += count
-				deferred.notify total
-				request()
-
-			else
-
-				deferred.resolve total
+			deferred.resolve count
 
 	# go!
-	request()
+	do request
 
 	# return
 	deferred.promise

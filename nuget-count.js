@@ -15,33 +15,24 @@ getUrl = function(user) {
 };
 
 packages = function(user) {
-  var deferred, page, process, request, requests, total;
+  var deferred, process, request;
   deferred = promise.defer();
-  page = -1;
-  total = 0;
-  requests = 0;
   request = function() {
     var url;
     ++requests;
-    url = getUrl(user, ++page);
+    url = getUrl(user);
     return scrape.request(url, function(err, $) {
       return process(err, $);
     });
   };
   process = function(err, $) {
-    var count, rows;
-    rows = $('#package .row');
-    count = rows.length;
-    if (err || (count === 1 && requests === 1)) {
+    var count, stats;
+    stats = $('.stat-number');
+    count = +stats[1].innerHTML;
+    if (err) {
       return deferred.reject(err);
     } else {
-      if (count > 1) {
-        total += count;
-        deferred.notify(total);
-        return request();
-      } else {
-        return deferred.resolve(total);
-      }
+      return deferred.resolve(count);
     }
   };
   request();
