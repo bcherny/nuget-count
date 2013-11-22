@@ -12,22 +12,21 @@ packages = (user) ->
 
 	request = ->
 
-		++requests
-
 		url = getUrl user
-		scrape.request url, (err, $) ->
-			process err, $
+		scrape.request url, process
 
 	process = (err, $) ->
 
 		stats = $ '.stat-number'
-		count = +stats[1].innerHTML
 
 		if err
 			deferred.reject err
 
+		else if not stats[0]
+			deferred.reject 'User does not exist'
+
 		else
-			deferred.resolve count
+			deferred.resolve +stats[0].children[0].data
 
 	# go!
 	do request

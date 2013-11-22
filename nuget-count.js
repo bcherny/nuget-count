@@ -19,20 +19,18 @@ packages = function(user) {
   deferred = promise.defer();
   request = function() {
     var url;
-    ++requests;
     url = getUrl(user);
-    return scrape.request(url, function(err, $) {
-      return process(err, $);
-    });
+    return scrape.request(url, process);
   };
   process = function(err, $) {
-    var count, stats;
+    var stats;
     stats = $('.stat-number');
-    count = +stats[1].innerHTML;
     if (err) {
       return deferred.reject(err);
+    } else if (!stats[0]) {
+      return deferred.reject('User does not exist');
     } else {
-      return deferred.resolve(count);
+      return deferred.resolve(+stats[0].children[0].data);
     }
   };
   request();
