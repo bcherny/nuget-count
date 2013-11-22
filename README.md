@@ -1,30 +1,27 @@
-npm-packages
+nuget-count
 ====================
 
-[![Build Status](https://travis-ci.org/eighttrackmind/npm-packages.png)](https://travis-ci.org/eighttrackmind/npm-packages.png)
-Fetch a user's package count from NPM
+[![Build Status](https://travis-ci.org/eighttrackmind/nuget-count.png)](https://travis-ci.org/eighttrackmind/nuget-count.png)
+Fetch a user's package count from Nuget
 
 ## Usage
 
 ```coffee
-getPackages = require 'npm-packages'
+get = require 'nuget-count'
 
 success = (count) -> ...
 error = (err) -> ...
-progress = (countSoFar) -> ...
 
-getPackages 'someUserName', success, error, progress
+(get 'someUserName').then success, error
 ```
 
 ## Features
 
 - Uses promises
-- Supports paginated responses
-- Supports `progress` for paginated responses
 
 # Implementation notes
 
-- Uses scraping (:[) because NPM has no API and the [npm-stats](https://npmjs.org/package/npm-stats) package is inconsistent and times out.
+- Uses scraping (:[) because Nuget has no API.
 - Because of the scraping approach, we cannot differentiate between user that exist but have no repos, and users that don't exist. Either will return a rejected promise.
 
 ## Supported environments
