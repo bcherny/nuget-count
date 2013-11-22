@@ -1,0 +1,45 @@
+{
+  "name": "nuget-count",
+  "version": "0.0.1",
+  "description": "Fetch a user's package count from Nuget",
+  "main": "nuget-count",
+  "scripts": {
+    "test": "./node_modules/.bin/nodeunit test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:eighttrackmind/nuget-count.git"
+  },
+  "keywords": [
+    "nuget",
+    "microsoft",
+    "net",
+    ".net",
+    "dot net",
+    "user",
+    "contribute",
+    "contribution",
+    "repo",
+    "repository",
+    "module",
+    "package",
+    "activity",
+    "number",
+    "tally",
+    "count",
+    "author",
+    "social"
+  ],
+  "author": "Boris Cherny <boris@performancejs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eighttrackmind/nuget-count/issues"
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8.2"
+  },
+  "dependencies": {
+    "scrape": "~0.2.3",
+    "when": "~2.6.0"
+  }
+}
